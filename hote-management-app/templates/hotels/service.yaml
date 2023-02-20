@@ -1,0 +1,11 @@
+apiVersion: apps/v1
+kind: Service
+metadata:
+  name: hotels
+spec:
+  ports:
+    - port: 3002
+      protocol: TCP
+      targetPort: 3002
+  selector:
+    app: hotels

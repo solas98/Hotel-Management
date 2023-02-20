@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hotels
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: hotels
+  template:
+    metadata:
+      labels:
+        app: hotels
+    spec:
+      containers:
+        - name: hotels
+          image: solas98/hotel-service
+          ports:
+            - name: http
+              containerPort: 3002
+              protocol: TCP
