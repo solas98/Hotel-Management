@@ -6,15 +6,36 @@ import Reservation from "../Models/Reservation.js";
 
 export const createReservation = async (req,res) => {
     try {
+        console.log("What?12");
+      const hotelId = req.body.hotelId;
+      const userId = req.body.userId;
       
-      // const hotelId = mongoose.Types.ObjectID(req.body.hotelId);
-      // const userId = mongoose.Types.ObjectID(req.body.userId);
-      
+        // Get the user data
+        await axios.get(`http://localhost:3003/api/users/${userId}`).then(userResponse => {
+         const userData = userResponse.data;
 
-        const newReservation = new Reservation(req.body);
-    
-            const savedReservation = await newReservation.save();
-            res.status(200).json(savedReservation);
+         //  Get the hotel data
+         axios.get(`http://localhost:3002/api/hotels/${hotelId}`).then(hotelResponse => {
+                 const hotelData = hotelResponse.data;
+                 console.log(hotelData);
+                 console.log("After receiving data");
+        
+                 // // Construct the reservation data
+                 const reservationData = {
+                     hotelId: hotelData,
+                     userId: userData,            
+                     startDate: req.body.startDate,
+                     endDate: req.body.endDate
+                   };
+                 const newReservation = new Reservation(reservationData);
+             
+                     const savedReservation =  newReservation.save();
+                     res.status(200).json(reservationData);
+        });
+       
+        });
+        
+        
         } catch (err) {
             res.status(500).json(err);
         }

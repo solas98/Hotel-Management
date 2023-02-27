@@ -32,7 +32,7 @@ router.delete("/:id",verifyUser, deleteUser);
 
 //Get a User by id
 //Only an owner can get User
-router.get("/:id",verifyUser, getUser);
+router.get("/:id", getUser);
 
 router.get("/:username",verifyUser, getUserByUsername);
 
