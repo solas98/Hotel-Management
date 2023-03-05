@@ -15,6 +15,13 @@ spec:
       containers:
         - name: hotels
           image: solas98/hotel-service
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+            requests:
+              memory: "64Mi"
+              cpu: "10m"
           ports:
             - name: http
               containerPort: 3002
