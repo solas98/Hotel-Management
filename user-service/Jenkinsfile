@@ -1,0 +1,24 @@
+pipeline{
+  
+  environment{
+    dockerimagename = "solas98/user-service"
+    dockerImage = ""
+  }
+  
+  agent any
+  
+  stages{
+    stage('SCM'){
+      steps{
+        git ''
+      }
+    }    
+    stage('Build Image'){
+      steps{
+        script{
+          dockerImage = docker.build dockerimagename
+        }
+      }
+    }
+  }  
+}
